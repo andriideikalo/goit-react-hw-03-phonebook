@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ContactForm from './ContactForms/ContactForm';
 import { nanoid } from 'nanoid';
+import Notiflix from 'notiflix';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter';
 
@@ -14,7 +15,22 @@ export class App extends Component {
     ],
     filter: '',
   };
-
+  // ---------------- забираємо те що в localStorage
+  // if (!parsedContacts) {
+  //       Notiflix.Notify.success('No contacts found. Add contacts. ', {
+  //         timeout: 3000,
+  //       });
+  //     }}
+  componentDidMount() {
+    console.log('didmount');
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    // console.log(parsedContacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+  // ---------------------------
   // ----------------запис в localStorage
 
   componentDidUpdate(prevProps, prevState) {
@@ -24,20 +40,6 @@ export class App extends Component {
     if (this.state.contacts !== prevState.contact) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
-  }
-  // ---------------------------
-  // ---------------- забираємо те що в localStorage
-
-  componentDidMount() {
-    console.log('didmount');
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
-    console.log(parsedContacts);
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-    alert(`No contacts found`);
-    return;
   }
   // ---------------------------
 
