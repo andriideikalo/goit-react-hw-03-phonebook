@@ -4,6 +4,21 @@ import { nanoid } from 'nanoid';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter';
 
+// const contactsBegin = [
+//   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+//   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+//   { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+//   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+// ];
+
+// const contactsListBegin = () => {
+//   const contacts = [
+//     { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+//     { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+//     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+//     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+//   ];
+// };
 export class App extends Component {
   state = {
     contacts: [
@@ -14,6 +29,31 @@ export class App extends Component {
     ],
     filter: '',
   };
+
+  // ----------------запис в localStorage
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('object');
+    console.log(prevState);
+    console.log(this.state);
+    if (this.state.contacts !== prevState.contact) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+  // ---------------------------
+  // ---------------- забираємо те що в localStorage
+
+  componentDidMount() {
+    console.log('didmount');
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    console.log(parsedContacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+    // contactsListBegin();
+  }
+  // ---------------------------
 
   addContact = contact => {
     const id = nanoid();
