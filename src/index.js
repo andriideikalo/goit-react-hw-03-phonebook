@@ -4,7 +4,9 @@ import { App } from 'components/App';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  // закомітив, щоб не було дубляжу рендеру
+
+  // <React.StrictMode>
+  <App />
+  // </React.StrictMode>
 );

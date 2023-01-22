@@ -16,11 +16,7 @@ export class App extends Component {
     filter: '',
   };
   // ---------------- забираємо те що в localStorage
-  // if (!parsedContacts) {
-  //       Notiflix.Notify.success('No contacts found. Add contacts. ', {
-  //         timeout: 3000,
-  //       });
-  //     }}
+
   componentDidMount() {
     console.log('didmount');
     const contacts = localStorage.getItem('contacts');
@@ -28,6 +24,11 @@ export class App extends Component {
     // console.log(parsedContacts);
     if (parsedContacts) {
       this.setState({ contacts: parsedContacts });
+    }
+    if (!parsedContacts) {
+      Notiflix.Notify.success('No contacts found. Add contacts. ', {
+        timeout: 3000,
+      });
     }
   }
   // ---------------------------
